@@ -1,0 +1,39 @@
+---
+title: "Leading indicators of market growth"
+author: "John M. Drake"
+date: "2025-07-04"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, cache=TRUE)
+```
+
+## Background
+
+Here we analyze a time series of data provided by Marcus Cunha for Thoughtful Insights. 
+The objective is to illustrate a use case for statistical leading indicators based on the theory of critical slowing down.
+
+## Data
+
+First we read in the data.
+
+```{r data}
+data <- read.csv('kpi-data.csv')
+```
+
+Calculate total revenue as $REVENUE = MRR + NMRR + Expansion$.
+
+```{r}
+data$revenue <- data$MRR + data$NMRR + data$Expansion
+```
+
+Plot two variables (`revenue` and `Clients`) on ordinary and logarthmic scales.
+
+```{r plot}
+par(mfrow=c(2,2))
+plot(data$Clients, type='l', xlab='Time', ylab='Clients', main='Ordinary scale')
+plot(data$Clients, type='l', log='y', xlab='Time', ylab='Clients', main='Logarithmic scale')
+plot(data$revenue, type='l', xlab='Time', ylab='Revenue', main='Ordinary scale')
+plot(data$revenue, type='l', log='y', xlab='Time', ylab='Revenue', main='Logarithmic scale')
+```
